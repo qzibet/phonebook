@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html>
+
+<head>
+
+</head>
+
+<body>
+    <h1>
+        Все номера
+    </h1>
+    <div>
+        <form action="{% url 'search' %}" method="GET">
+            <input type="search" placeholder="Введите имя или номер..." name="q">
+            <button type="submit">
+                <span>
+                    Найти
+                </span>
+            </button>
+        </form>
+    </div>
+
+    <div class="pagination">
+        <table border="1">
+
+            <th>
+                ФИО
+            </th>
+            <th>
+                Номер
+            </th>
+            {% for contact in phonebook_list %}
+            <tr>
+                <td>
+                    {{ contact.title }}
+                </td>
+
+                <td>
+                    {{ contact.phone }}
+                </td>
+
+            </tr>
+            {% endfor %}
+        </table>
+        
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; Назад</a>
+        {% endif %}
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">Далее</a>
+        {% endif %}
+
+    </div>
+</body>
+
+</html>
